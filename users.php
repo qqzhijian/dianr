@@ -14,7 +14,7 @@ include 'includes/header.php';
             <div class="card-body">
                 <?php
                 $pdo = connectDB();
-                $stmt = $pdo->query("SELECT id, nickname, mobile, role, last_seen FROM users WHERE is_blacklisted = 0 AND is_deleted = 0 ORDER BY last_seen DESC");
+                $stmt = $pdo->query("SELECT id, nickname, mobile, role, last_seen, is_verified FROM users WHERE is_blacklisted = 0 AND is_deleted = 0 ORDER BY last_seen DESC");
                 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (empty($users)) {
                     echo '<p>暂无用户</p>';
@@ -26,7 +26,11 @@ include 'includes/header.php';
                         echo "<div class='col-md-4 mb-3'>";
                         echo "<div class='card'>";
                         echo "<div class='card-body'>";
-                        echo "<h5>{$u['nickname']}</h5>";
+                        echo "<h5>{$u['nickname']}";
+                        if ($u['is_verified']) {
+                            echo " <i class='fas fa-check-circle text-success' title='已认证'></i>";
+                        }
+                        echo "</h5>";
                         echo "<p>手机号: {$mobile}</p>";
                         echo "<p>角色: {$u['role']}</p>";
                         echo "<span class='online-status {$status}'></span>";

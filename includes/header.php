@@ -26,6 +26,9 @@
                             <li class="nav-item"><a class="nav-link" href="/certifications.php">认证</a></li>
                         <?php endif; ?>
                         <li class="nav-item"><a class="nav-link" href="/reviews.php">评价</a></li>
+                        <?php if (isAdmin()): ?>
+                            <li class="nav-item"><a class="nav-link" href="/admin.php">管理</a></li>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav">

@@ -14,13 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role = $_POST['role'] ?? 'user';
 
     if (empty($mobile) && empty($email)) {
-        $errors[] = '手机号或邮箱至少填写一个';
+        $errors[] = '请填写手机号或邮箱';
     }
     if (empty($nickname) || empty($password)) {
         $errors[] = '昵称和密码不能为空';
     }
-    if (!in_array($role, ['user', 'mediator', 'merchant'])) {
-        $errors[] = '角色无效';
+    if (strlen($password) < 6) {
+        $errors[] = '密码至少需要6位';
     }
 
     if (empty($errors)) {
@@ -46,50 +46,46 @@ $title = '注册';
 include 'includes/header.php';
 ?>
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">注册</div>
-            <div class="card-body">
-                <?php if ($errors): ?>
-                    <div class="alert alert-danger">
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li><?php echo htmlspecialchars($error); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>加入点燃</h2>
+            <p>开启你的美好邂逅</p>
+        </div>
 
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="mobile" class="form-label">手机号（可选）</label>
-                        <input type="text" class="form-control" id="mobile" name="mobile">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">邮箱（可选）</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="nickname" class="form-label">昵称</label>
-                        <input type="text" class="form-control" id="nickname" name="nickname" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">密码</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">角色</label>
-                        <select class="form-control" id="role" name="role">
-                            <option value="user">用户</option>
-                            <option value="mediator">媒人</option>
-                            <option value="merchant">商家</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">注册</button>
-                </form>
-                <p class="mt-3">已有账号？<a href="/login.php">登录</a></p>
+        <?php if ($errors): ?>
+            <div class="alert alert-error">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo htmlspecialchars($error); ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
+        <?php endif; ?>
+
+        <form method="post" class="auth-form">
+            <div class="form-group">
+                <label for="contact" class="form-label">手机号或邮箱</label>
+                <input type="text" class="form-input" id="contact" name="mobile" placeholder="请输入手机号或邮箱" value="<?php echo htmlspecialchars($_POST['mobile'] ?? ''); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nickname" class="form-label">昵称</label>
+                <input type="text" class="form-input" id="nickname" name="nickname" placeholder="给自己起个好听的名字" value="<?php echo htmlspecialchars($_POST['nickname'] ?? ''); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">密码</label>
+                <input type="password" class="form-input" id="password" name="password" placeholder="设置登录密码（至少6位）" required>
+            </div>
+
+            <input type="hidden" name="role" value="user">
+
+            <button type="submit" class="btn btn-primary btn-full">立即注册</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>已有账号？<a href="/login.php" class="link">去登录</a></p>
         </div>
     </div>
 </div>

@@ -32,34 +32,43 @@ $title = '登录';
 include 'includes/header.php';
 ?>
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">登录</div>
-            <div class="card-body">
-                <?php if ($errors): ?>
-                    <div class="alert alert-danger">
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li><?php echo htmlspecialchars($error); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>欢迎回来</h2>
+            <p>登录您的DianR账号</p>
+        </div>
 
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="mobile" class="form-label">手机号</label>
-                        <input type="text" class="form-control" id="mobile" name="mobile" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">密码</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">登录</button>
-                </form>
-                <p class="mt-3">还没有账号？<a href="/register.php">注册</a></p>
-            </div>
+        <div class="auth-form">
+            <?php if ($errors): ?>
+                <div class="alert alert-error">
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                            <li><?php echo htmlspecialchars($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <form method="post">
+                <div class="form-group">
+                    <label for="mobile" class="form-label">手机号</label>
+                    <input type="text" class="form-input" id="mobile" name="mobile"
+                           placeholder="请输入手机号" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">密码</label>
+                    <input type="password" class="form-input" id="password" name="password"
+                           placeholder="请输入密码" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">登录</button>
+            </form>
+        </div>
+
+        <div class="auth-footer">
+            <p>还没有账号？<a href="/register.php" class="link">立即注册</a></p>
         </div>
     </div>
 </div>
