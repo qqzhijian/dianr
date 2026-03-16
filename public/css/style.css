@@ -1,0 +1,99 @@
+/* 公共样式 - 轻量、清爽 */
+body {
+    background: #f7f8fb;
+    color: #333;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.hero-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    margin-bottom: 1.25rem;
+    color: #555;
+}
+
+.cta-button {
+    padding: 10px 22px;
+    font-size: 1rem;
+    border-radius: 999px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+.feature-card i {
+    font-size: 2.2rem;
+    color: #0d6efd;
+    margin-bottom: 10px;
+}
+
+.online-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.online-status.online { background: #1abc9c; }
+.online-status.away { background: #f1c40f; }
+.online-status.offline { background: #bdc3c7; }
+
+.chat-messages {
+    max-height: 400px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.message.sent {
+    background: #007bff;
+    color: white;
+    text-align: right;
+}
+
+.message.received {
+    background: #e9ecef;
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input input {
+    flex: 1;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+.footer {
+    border-top: 1px solid rgba(0,0,0,0.06);
+}
