@@ -113,4 +113,4 @@ CREATE TABLE IF NOT EXISTS reviews (
 
 -- 初始管理员账号 (请上线后修改密码)
 INSERT IGNORE INTO users (mobile, email, password_hash, nickname, role, is_verified)
-VALUES ('18800000000', 'admin@dianr.local', '
+VALUES ('18800000000', 'admin@dianr.local', '$2y$10$2T5mDW5A/M0QL5FdpOK5O.VaNj3/3YKVqUU.oH5J.jYUuNr6rAYEu', '管理员', 'admin', 1);
