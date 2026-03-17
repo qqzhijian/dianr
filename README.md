@@ -243,6 +243,108 @@ A: 联系管理员重置密码，或重新注册新账号。
 - 完成活动和聊天功能
 - 后台管理框架
 
+## 📚 代码规范和开发指南
+
+本项目遵循严格的编码规范，以确保代码质量、安全性和可维护性。
+
+### 📖 关键文档
+
+所有开发人员**必须**阅读以下文档：
+
+| 文档 | 说明 | 适用人群 |
+|------|------|----------|
+| [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 📚 文档使用指南（**从这里开始**） | 所有人 |
+| [QUICK_REFERENCE.md](QUICK_REFERENCE.md) | ⚡ 快速参考（日常编码用） | 所有开发者 |
+| [CODE_STANDARDS.md](CODE_STANDARDS.md) | 👨‍💻 编码规范和最佳实践 | 所有开发者 |
+| [CODE_REVIEW_AND_IMPROVEMENTS.md](CODE_REVIEW_AND_IMPROVEMENTS.md) | 📊 详细的代码审查报告 | 新人/审查者 |
+| [OPTIMIZATION_SUMMARY.md](OPTIMIZATION_SUMMARY.md) | ✅ 优化工作总结 | 项目管理 |
+
+### 🎯 快速开始
+
+**新员工入职？** 按以下顺序阅读（约1小时）：
+1. [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) - 了解文档结构
+2. [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - 快速掌握规范
+3. [CODE_STANDARDS.md](CODE_STANDARDS.md) - 深入学习规范
+
+**要编写符合规范的代码？**
+1. 打开 [QUICK_REFERENCE.md](QUICK_REFERENCE.md)
+2. 查找相应的模板或示例
+3. 相关的模板和代码片段可以直接复用
+
+**进行代码审查？**
+1. 查看 [QUICK_REFERENCE.md](QUICK_REFERENCE.md) 中的"安全检查清单"
+2. 参考 [CODE_STANDARDS.md](CODE_STANDARDS.md) 中的规范
+
+### 📋 编码规范核心要点
+
+#### 1. 文件结构
+所有PHP文件必须包含：
+- 文件头PHPDoc注释（说明、作者、版本）
+- 按照固定顺序组织代码（导入→权限→逻辑→准备→渲染）
+- 代码区段注释（用 `// ==================== ... ====================` 分隔）
+
+#### 2. 函数注释
+每个函数必须包含PHPDoc注释：
+```php
+/**
+ * 简洁的一句话说明
+ * 
+ * @param type $name 参数说明
+ * @return type 返回值说明
+ * @example 使用示例
+ */
+```
+
+#### 3. 命名规范
+- 常量：全大写+下划线 (`DB_HOST`, `ONLINE_THRESHOLD`)
+- 变量：小驼峰 (`$userId`, `$userName`)
+- 函数：小驼峰 (`getCurrentUser()`, `hashPassword()`)
+- 类：大驼峰 (`UserManager`, `ActivityHandler`)
+
+#### 4. 安全要求（⭐ 非常重要）
+- ✅ SQL查询必须使用预编译语句防止SQL注入
+- ✅ HTML输出必须使用 `htmlspecialchars()` 防止XSS
+- ✅ 密码必须使用 `hashPassword()` 加密
+- ✅ 登录检查必须调用 `ensureLoggedIn()`
+
+### 🔍 代码审查清单
+
+提交代码前，检查以下项目：
+- [ ] 添加了文件头PHPDoc注释
+- [ ] 所有函数都有PHPDoc注释
+- [ ] 所有SQL查询都使用了预编译语句
+- [ ] 所有HTML输出都转义了
+- [ ] 没有混用 `$_POST` 和 `echo` 的直接用户输入
+- [ ] 代码格式符合规范（4空格缩进）
+- [ ] 没有注释掉的代码或调试代码
+
+### 📊 已优化的文件
+
+以下文件已按规范优化，可作为参考：
+- ✅ `config/config.php` - 完整的函数库和注释示例
+- ✅ `login.php` / `register.php` - 表单处理和认证示例
+- ✅ `index.php` - 页面逻辑和注释示例
+- ✅ `users.php` / `activities.php` - 列表显示示例
+
+### 🚀 后续改进计划
+
+- [ ] 优化其余核心文件（profile.php, chat.php, admin.php）
+- [ ] 建立 `lib/` 目录用于工具函数库
+- [ ] 添加单元测试框架
+- [ ] 实现日志系统
+- [ ] 配置静态代码分析工具
+
+### 💡 持续改进
+
+我们致力于提高代码质量。如果您：
+- 发现文档有错误或不清楚
+- 有编码规范的改进建议
+- 想分享最佳实践
+
+欢迎通过Issue或Pull Request告诉我们！
+
+---
+
 ## 联系我们
 
 如有问题或建议，请通过以下方式联系：
