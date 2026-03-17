@@ -20,13 +20,16 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="/activities.php">活动</a></li>
                     <li class="nav-item"><a class="nav-link" href="/users.php">用户</a></li>
-                    <?php 
-                    if (isLoggedIn()):
-                        $user = $user ?? getCurrentUser();
+                    <?php
+                    // Ensure $user is defined and valid when used by this template.
+                    if (!isset($user)) {
+                        $user = isLoggedIn() ? getCurrentUser() : null;
+                    }
+                    if (isLoggedIn() && $user):
                     ?>
                         <li class="nav-item"><a class="nav-link" href="/chat.php">聊天</a></li>
                         <li class="nav-item"><a class="nav-link" href="/profile.php">个人资料</a></li>
-                        <?php if ($user && ($user['role'] === 'mediator' || $user['role'] === 'merchant')): ?>
+                        <?php if (is_array($user) && ($user['role'] === 'mediator' || $user['role'] === 'merchant')): ?>
                             <li class="nav-item"><a class="nav-link" href="/certifications.php">认证</a></li>
                         <?php endif; ?>
                         <li class="nav-item"><a class="nav-link" href="/reviews.php">评价</a></li>
@@ -36,15 +39,17 @@
                     <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav">
-                    <?php if (isLoggedIn()):
-                        $user = $user ?? getCurrentUser();
-                        if ($user):
+                    <?php
+                        if (!isset($user)) {
+                            $user = isLoggedIn() ? getCurrentUser() : null;
+                        }
+                        if (isLoggedIn() && $user):
+                            $nickname = is_array($user) ? ($user['nickname'] ?? '用户') : '用户';
                     ?>
-                        <li class="nav-item"><span class="nav-link">欢迎, <?php echo htmlspecialchars($user['nickname'] ?? '用户'); ?></span></li>
+                        <li class="nav-item"><span class="nav-link">欢迎, <?php echo htmlspecialchars($nickname); ?></span></li>
                         <li class="nav-item"><a class="nav-link" href="/logout.php">退出</a></li>
                     <?php 
-                        endif;
-                    else: ?>
+                        else: ?>
                         <li class="nav-item"><a class="nav-link" href="/login.php">登录</a></li>
                         <li class="nav-item"><a class="nav-link" href="/register.php">注册</a></li>
                     <?php endif; ?>

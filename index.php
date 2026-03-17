@@ -62,12 +62,19 @@ include 'includes/header.php';
             <div class="card-body">
                 <?php
                 if (isLoggedIn()) {
-                    // Fallback to last_seen. `is_online` is not in schema.
-                    $threshold = ONLINE_THRESHOLD;
-                    $since = date('Y-m-d H:i:s', time() - $threshold);
-                    $stmt = $pdo->prepare('SELECT id, nickname, last_seen FROM users WHERE last_seen >= ? AND id != ? ORDER BY last_seen DESC LIMIT 10');
-                    $stmt->execute([$since, $_SESSION['user_id']]);
-                    $onlineUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // Some schema versions used an `is_online` column; modern schema uses `last_seen`.
+                    // Wrap in a try/catch so a missing column does not break the page.
+                    try {
+                        $threshold = ONLINE_THRESHOLD;
+                        $since = date('Y-m-d H:i:s', time() - $threshold);
+                        $stmt = $pdo->prepare('SELECT id, nickname, last_seen FROM users WHERE last_seen >= ? AND id != ? ORDER BY last_seen DESC LIMIT 10');
+                        $stmt->execute([$since, $_SESSION['user_id']]);
+                        $onlineUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    } catch (PDOException $e) {
+                        // Fallback: if the schema is different (missing columns), just show no online users.
+                        $onlineUsers = [];
+                    }
+
                     if (empty($onlineUsers)) {
                         echo '<p>暂无在线用户</p>';
                     } else {
