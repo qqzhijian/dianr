@@ -246,8 +246,8 @@ A: 联系管理员重置密码，或重新注册新账号。
 ## 联系我们
 
 如有问题或建议，请通过以下方式联系：
-- 邮箱: support@dianr.com
-- 网站: https://dianr.com
+- 邮箱: admin@xingtu.org
+- 网站: https://dianr.cn
 
 ---
 
