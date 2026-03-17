@@ -62,14 +62,18 @@ include 'includes/header.php';
             <div class="card-body">
                 <?php
                 if (isLoggedIn()) {
-                    $stmt = $pdo->query("SELECT id, nickname, last_seen FROM users WHERE is_online = 1 AND id != {$_SESSION['user_id']} LIMIT 10");
+                    // Fallback to last_seen. `is_online` is not in schema.
+                    $threshold = ONLINE_THRESHOLD;
+                    $since = date('Y-m-d H:i:s', time() - $threshold);
+                    $stmt = $pdo->prepare('SELECT id, nickname, last_seen FROM users WHERE last_seen >= ? AND id != ? ORDER BY last_seen DESC LIMIT 10');
+                    $stmt->execute([$since, $_SESSION['user_id']]);
                     $onlineUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     if (empty($onlineUsers)) {
                         echo '<p>暂无在线用户</p>';
                     } else {
                         foreach ($onlineUsers as $user) {
                             $status = getOnlineStatus($user['last_seen']);
-                            echo "<div><span class='online-status {$status}'></span>{$user['nickname']}</div>";
+                            echo "<div><span class='online-status {$status}'></span> " . htmlspecialchars($user['nickname']) . "</div>";
                         }
                     }
                 } else {

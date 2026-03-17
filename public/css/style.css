@@ -199,6 +199,84 @@ body {
     margin-bottom: 4px;
 }
 
+/* Additional UI improvements */
+.card {
+    border-radius: 1rem;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 1rem;
+    padding: 30px 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 240px;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.18);
+}
+
+.feature-card i {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.online-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.online-status.online {
+    background: #28a745;
+}
+
+.online-status.away {
+    background: #ffc107;
+}
+
+.online-status.offline {
+    background: #6c757d;
+}
+
+footer.footer {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 767px) {
+    .hero-section h1 {
+        font-size: 2.4rem;
+    }
+    .feature-card {
+        min-height: auto;
+    }
+}
+
+
 /* 卡片样式优化 */
 .card {
     background: white;
