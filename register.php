@@ -7,15 +7,10 @@ if (isLoggedIn()) {
 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $mobile = trim($_POST['mobile'] ?? '');
-    $email = trim($_POST['email'] ?? '');
     $nickname = trim($_POST['nickname'] ?? '');
     $password = $_POST['password'] ?? '';
     $role = $_POST['role'] ?? 'user';
 
-    if (empty($mobile) && empty($email)) {
-        $errors[] = '请填写手机号或邮箱';
-    }
     if (empty($nickname) || empty($password)) {
         $errors[] = '昵称和密码不能为空';
     }
@@ -25,15 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         $pdo = connectDB();
-        // Check if mobile or email exists
-        $stmt = $pdo->prepare('SELECT id FROM users WHERE (mobile = ? OR email = ?) AND is_deleted = 0 LIMIT 1');
-        $stmt->execute([$mobile, $email]);
+        // Check if nickname exists
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE nickname = ? AND is_deleted = 0 LIMIT 1');
+        $stmt->execute([$nickname]);
         if ($stmt->fetch()) {
-            $errors[] = '手机号或邮箱已被注册';
+            $errors[] = '昵称已被使用';
         } else {
             $passwordHash = hashPassword($password);
-            $stmt = $pdo->prepare('INSERT INTO users (mobile, email, password_hash, nickname, role) VALUES (?, ?, ?, ?, ?)');
-            $stmt->execute([$mobile ?: null, $email ?: null, $passwordHash, $nickname, $role]);
+            $stmt = $pdo->prepare('INSERT INTO users (password_hash, nickname, role) VALUES (?, ?, ?)');
+            $stmt->execute([$passwordHash, $nickname, $role]);
             $userId = $pdo->lastInsertId();
             $_SESSION['user_id'] = $userId;
             updateLastSeen();
@@ -64,11 +59,6 @@ include 'includes/header.php';
         <?php endif; ?>
 
         <form method="post" class="auth-form">
-            <div class="form-group">
-                <label for="contact" class="form-label">手机号或邮箱</label>
-                <input type="text" class="form-input" id="contact" name="mobile" placeholder="请输入手机号或邮箱" value="<?php echo htmlspecialchars($_POST['mobile'] ?? ''); ?>" required>
-            </div>
-
             <div class="form-group">
                 <label for="nickname" class="form-label">昵称</label>
                 <input type="text" class="form-input" id="nickname" name="nickname" placeholder="给自己起个好听的名字" value="<?php echo htmlspecialchars($_POST['nickname'] ?? ''); ?>" required>

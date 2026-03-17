@@ -21,9 +21,8 @@
                     <li class="nav-item"><a class="nav-link" href="/activities.php">活动</a></li>
                     <li class="nav-item"><a class="nav-link" href="/users.php">用户</a></li>
                     <?php 
-                    $user = isset($user) ? $user : null;
                     if (isLoggedIn()):
-                        $user = getCurrentUser();
+                        $user = $user ?? getCurrentUser();
                     ?>
                         <li class="nav-item"><a class="nav-link" href="/chat.php">聊天</a></li>
                         <li class="nav-item"><a class="nav-link" href="/profile.php">个人资料</a></li>

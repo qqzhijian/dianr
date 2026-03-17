@@ -1,12 +1,13 @@
 <?php
 require_once 'config/config.php';
 $title = '首页';
+$user = isLoggedIn() ? getCurrentUser() : null;
+$pdo = connectDB();
 include 'includes/header.php';
 ?>
 
 <div class="hero-section">
     <h1>点燃生活，遇见未来</h1>
-    <p>连接用户、媒人和商家的轻量级交友平台，发现更多可能性</p>
     <a href="/register.php" class="cta-button">立即加入</a>
 </div>
 
@@ -40,7 +41,6 @@ include 'includes/header.php';
             <div class="card-header">最新活动</div>
             <div class="card-body">
                 <?php
-                $pdo = connectDB();
                 $stmt = $pdo->query("SELECT a.*, u.nickname as creator_name FROM activities a JOIN users u ON a.creator_id = u.id ORDER BY a.created_at DESC LIMIT 5");
                 $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 if (empty($activities)) {
@@ -71,9 +71,9 @@ include 'includes/header.php';
                     if (empty($onlineUsers)) {
                         echo '<p>暂无在线用户</p>';
                     } else {
-                        foreach ($onlineUsers as $user) {
-                            $status = getOnlineStatus($user['last_seen']);
-                            echo "<div><span class='online-status {$status}'></span> " . htmlspecialchars($user['nickname']) . "</div>";
+                        foreach ($onlineUsers as $onlineUser) {
+                            $status = getOnlineStatus($onlineUser['last_seen']);
+                            echo "<div><span class='online-status {$status}'></span> " . htmlspecialchars($onlineUser['nickname']) . "</div>";
                         }
                     }
                 } else {
