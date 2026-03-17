@@ -6,6 +6,9 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    redirect('/login.php');
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $code = trim($_POST['code'] ?? '');

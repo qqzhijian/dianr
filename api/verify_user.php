@@ -7,6 +7,10 @@ if (!isLoggedIn() || !isAdmin()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    http_response_code(403);
+    exit;
+}
 $data = json_decode(file_get_contents('php://input'), true);
 
 $userId = (int)($data['user_id'] ?? 0);

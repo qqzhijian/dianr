@@ -6,9 +6,12 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    redirect('/login.php');
+}
 
 // Check if verified
-if (!$user['is_verified']) {
+if (!isset($user['is_verified']) || !$user['is_verified']) {
     redirect('/verify.php');
 }
 $receiver_id = (int)($_GET['user'] ?? 0);

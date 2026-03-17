@@ -7,6 +7,10 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    http_response_code(401);
+    exit;
+}
 $receiverId = (int)($_GET['receiver'] ?? 0);
 
 if (!$receiverId) {

@@ -20,8 +20,9 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="/activities.php">活动</a></li>
                     <li class="nav-item"><a class="nav-link" href="/users.php">用户</a></li>
-                    <?php $user = null; ?>
-                    <?php if (isLoggedIn()):
+                    <?php 
+                    $user = isset($user) ? $user : null;
+                    if (isLoggedIn()):
                         $user = getCurrentUser();
                     ?>
                         <li class="nav-item"><a class="nav-link" href="/chat.php">聊天</a></li>
@@ -38,10 +39,13 @@
                 <ul class="navbar-nav">
                     <?php if (isLoggedIn()):
                         $user = $user ?? getCurrentUser();
+                        if ($user):
                     ?>
-                        <li class="nav-item"><span class="nav-link">欢迎, <?php echo htmlspecialchars($user['nickname'] ?? ''); ?></span></li>
+                        <li class="nav-item"><span class="nav-link">欢迎, <?php echo htmlspecialchars($user['nickname'] ?? '用户'); ?></span></li>
                         <li class="nav-item"><a class="nav-link" href="/logout.php">退出</a></li>
-                    <?php else: ?>
+                    <?php 
+                        endif;
+                    else: ?>
                         <li class="nav-item"><a class="nav-link" href="/login.php">登录</a></li>
                         <li class="nav-item"><a class="nav-link" href="/register.php">注册</a></li>
                     <?php endif; ?>

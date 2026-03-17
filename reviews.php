@@ -6,6 +6,9 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    redirect('/login.php');
+}
 $pdo = connectDB();
 
 $action = $_GET['action'] ?? 'list';

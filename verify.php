@@ -6,8 +6,11 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    redirect('/login.php');
+}
 
-if ($user['is_verified']) {
+if (isset($user['is_verified']) && $user['is_verified']) {
     redirect('/');
 }
 

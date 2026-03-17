@@ -1,7 +1,7 @@
 <?php
 require_once 'config/config.php';
 
-$user = getCurrentUser();
+$user = isLoggedIn() ? getCurrentUser() : null;
 
 $title = '用户';
 include 'includes/header.php';

@@ -6,6 +6,9 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    redirect('/login.php');
+}
 $ownerId = (int)($_GET['id'] ?? 0);
 
 if (!$ownerId || $ownerId == $user['id']) {

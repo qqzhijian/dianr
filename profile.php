@@ -6,6 +6,9 @@ if (!isLoggedIn()) {
 }
 
 $user = getCurrentUser();
+if (!$user) {
+    redirect('/login.php');
+}
 $profileId = (int)($_GET['id'] ?? $user['id']);
 
 $pdo = connectDB();

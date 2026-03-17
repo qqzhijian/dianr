@@ -1,8 +1,8 @@
 <?php
 require_once 'config/config.php';
 
-$user = getCurrentUser();
-$canCreate = $user && in_array($user['role'], ['mediator', 'merchant']);
+$user = isLoggedIn() ? getCurrentUser() : null;
+$canCreate = $user && isset($user['role']) && in_array($user['role'], ['mediator', 'merchant']);
 
 $title = '活动';
 include 'includes/header.php';
